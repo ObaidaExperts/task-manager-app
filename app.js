@@ -8,7 +8,7 @@ class TaskManager {
     init() {
         const addButton = document.getElementById('add-task-btn');
         addButton.addEventListener('click', () => this.addTask());
-        
+
         const taskInput = document.getElementById('task-input');
         taskInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.addTask();
@@ -18,7 +18,7 @@ class TaskManager {
     addTask() {
         const taskInput = document.getElementById('task-input');
         const prioritySelect = document.getElementById('priority-select');
-        
+
         const description = taskInput.value.trim();
         if (!description) {
             alert('Please enter a task description');
@@ -29,12 +29,13 @@ class TaskManager {
             id: Date.now(),
             description: description,
             priority: prioritySelect.value,
-            completed: false
+            completed: false,
+            createdAt: new Date().toLocaleString()
         };
 
         this.tasks.push(task);
         this.render();
-        
+
         taskInput.value = '';
         prioritySelect.value = 'low';
     }
@@ -52,13 +53,15 @@ class TaskManager {
             const taskElement = document.createElement('div');
             taskElement.className = `task-item ${task.priority}`;
             taskElement.innerHTML = `
-                <strong>${task.description}</strong>
-                <small style="display: block; margin-top: 5px; color: #666;">
-                    Priority: ${task.priority.toUpperCase()}
-                </small>
-            `;
+    <strong>${task.description}</strong>
+    <small style="display: block; margin-top: 5px; color: #666;">
+        Priority: ${task.priority.toUpperCase()} | Created: ${task.createdAt}
+    </small>
+`;
             taskList.appendChild(taskElement);
         });
+
+
     }
 }
 
